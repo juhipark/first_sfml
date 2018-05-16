@@ -1,18 +1,18 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "UnoGame.hpp"
+
+using namespace std;
+
 int main(){
     
-    sf::RenderWindow window(sf::VideoMode(2000, 2000), "UNO Card");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Magenta);
+    sf::RenderWindow window(sf::VideoMode(2000, 2000), "BMJ UNO");
 
-    sf::Texture tx;
-    if(!tx.loadFromFile("small/yellow_2.png"))
-    {
-        std::cout << "Error loading the image" << std::endl;
-    }
-    sf::Sprite sp(tx);
-    
+    UnoGame uno_game;
+
+    sf::Clock clock;
+    sf::Time time;
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -25,18 +25,21 @@ int main(){
                 case sf::Event::Closed:
                     window.close();
                     break;
-                //if (event.type == sf::Event::Closed)
-                    //window.close();
-                case sf::Event::KeyPressed:      
-                    std::cout << "A key has been pressed" << std::endl;
-                    
+                case sf::Event::KeyPressed: 
+                    cout << "A key has been pressed" << endl;
                     break;
                 default:
                     break;
             }
         }
+
+        time = clock.getElapsedTime();
+        uno_game.update(time.asSeconds());
+        clock.restart().asSeconds();
+
+
         window.clear();
-        window.draw(sp);
+        uno_game.draw(window);
         window.display();
     }
     return 0;
