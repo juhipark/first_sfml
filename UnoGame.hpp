@@ -1,22 +1,26 @@
 #ifndef UNOGAME_HPP
 #define UNOGAME_HPP
-
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Player.hpp"
+#include "Card.hpp"
+
+const int WIDTH = 2000;
+const int HEIGHT = 2000;
+
 class UnoGame{
 protected:
-    sf::Texture cardTexture;
-    sf::Sprite cardSprite;
-
+    sf::RenderWindow window;
+    Card c1;
+    Player user;
 
 public:
     UnoGame();
     ~UnoGame();
-
-    //dt, change in time
-    void update(float dt);
-    void draw(sf::RenderWindow &window);
-
+    void run();
+    void processEvents();
+    void update();
+    void render();
 
 };
 
